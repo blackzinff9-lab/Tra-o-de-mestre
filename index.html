@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>TraceMaster v3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Righteous&family=Fredoka+One&family=Pacifico&family=Lobster&family=Press+Start+2P&family=Orbitron:wght@700&family=Cinzel:wght@700&family=Raleway:wght@800&family=Oswald:wght@700&family=Playfair+Display:wght@700&family=Dancing+Script:wght@700&family=Abril+Fatface&family=Black+Han+Sans&family=Boogaloo&family=Chewy&family=Permanent+Marker&family=Russo+One&family=Saira+Stencil+One&family=Yatra+One&display=swap" rel="stylesheet" crossorigin>
+<script src="https://unpkg.com/imagetracerjs@1.2.6/imagetracer_v1.2.6.js"></script>
+<script async src="https://docs.opencv.org/4.8.0/opencv.js" onload="window._cvReady=true;"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+<link rel="stylesheet" href="styles/main.css">
+<link rel="stylesheet" href="styles/components.css">
+</head>
+<body>
+<!-- ====== UI TOP ====== -->
+<div id="ui-top"><b>TraceMaster</b><br><small>Sensibilidade:</small> <input type="range" id="thresh" min="10" max="150" value="50"></div>
+
+<!-- ====== VIEWPORT ====== -->
+<div id="viewport">
+    <div id="work-surface">
+        <svg id="grade-layer" xmlns="http://www.w3.org/2000/svg"></svg>
+        <div id="svg-render-area"></div>
+        <svg id="draw-layer" xmlns="http://www.w3.org/2000/svg"></svg>
+        <canvas id="outline-overlay" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:12;display:none;"></canvas>
+        <svg id="pen-layer" xmlns="http://www.w3.org/2000/svg"></svg>
+        <div id="btn-confirmar-pen" style="display:none; position:absolute; z-index:9999; width:80px; height:80px; border-radius:50%; background:transparent; cursor:pointer; align-items:center; justify-content:center; transform:translate(-50%,-50%); pointer-events:all; touch-action:none;"><div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#03dac6,#00a896);border:2px solid white;box-shadow:0 2px 12px rgba(3,218,198,0.6);display:flex;align-items:center;justify-content:center;font-size:20px;color:white;font-weight:900;pointer-events:none;">✓</div></div>
+        <svg id="livre-layer" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;"></svg>
+        <svg id="forma-preview" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;"></svg>
+        <svg id="borracha-layer" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;"></svg>
+        <svg id="degrade-preview-layer" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;"></svg>
+        <svg id="selecao-layer" xmlns="http://www.w3.org/2000/svg"></svg>
+        <svg id="texto-layer" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;"></svg>
+    </div>
+</div>
+
+<!-- ====== HANDLES HTML (seleção) ====== -->
+<div id="sel-handle-tl" class="sel-handle-html" data-corner="tl" style="display:none"></div>
+<div id="sel-handle-tr" class="sel-handle-html" data-corner="tr" style="display:none"></div>
+<div id="sel-handle-bl" class="sel-handle-html" data-corner="bl" style="display:none"></div>
+<div id="sel-handle-br" class="sel-handle-html" data-corner="br" style="display:none"></div>
+<div id="sel-handle-rot" class="sel-handle-html-rot" style="display:none">↻</div>
+
+<!-- ====== BOLINHAS DEGRADÊ ====== -->
+<div id="dg-bolinha-a" style="display:none;position:fixed;width:52px;height:52px;border-radius:50%;background:#03dac6;border:3px solid white;box-shadow:0 0 0 2px #03dac6,0 3px 10px rgba(0,0,0,0.6);z-index:500;touch-action:none;pointer-events:all;font-size:13px;font-weight:900;color:#000;display:none;align-items:center;justify-content:center;">A</div>
+<div id="dg-bolinha-b" style="display:none;position:fixed;width:52px;height:52px;border-radius:50%;background:#ff00ff;border:3px solid white;box-shadow:0 0 0 2px #ff00ff,0 3px 10px rgba(0,0,0,0.6);z-index:500;touch-action:none;pointer-events:all;font-size:13px;font-weight:900;color:#fff;display:none;align-items:center;justify-content:center;">B</div>
+<div id="txt-dg-bolinha-a" style="display:none;position:fixed;width:32px;height:32px;border-radius:50%;background:#03dac6;border:2px solid white;box-shadow:0 0 0 2px #03dac6,0 2px 8px rgba(0,0,0,0.6);z-index:500;touch-action:none;pointer-events:all;font-size:10px;font-weight:900;color:#000;align-items:center;justify-content:center;">A</div>
+<div id="txt-dg-bolinha-b" style="display:none;position:fixed;width:32px;height:32px;border-radius:50%;background:#ff00ff;border:2px solid white;box-shadow:0 0 0 2px #ff00ff,0 2px 8px rgba(0,0,0,0.6);z-index:500;touch-action:none;pointer-events:all;font-size:10px;font-weight:900;color:#fff;display:none;align-items:center;justify-content:center;">B</div>
+<div id="btn-editar-texto" style="display:none;position:fixed;width:38px;height:38px;border-radius:50%;background:#ffaa00;border:3px solid white;box-shadow:0 0 0 2px #ffaa00,0 3px 10px rgba(0,0,0,0.6);z-index:550;touch-action:none;pointer-events:all;font-size:16px;align-items:center;justify-content:center;">✏️</div>
+<div id="btn-confirmar-degrade" style="display:none;position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#03dac6,#00a896);color:#000;border:none;border-radius:30px;padding:13px 32px;font-size:15px;font-weight:900;z-index:600;box-shadow:0 4px 20px rgba(3,218,198,0.6);cursor:pointer;letter-spacing:1px;white-space:nowrap;">✓ SALVAR DEGRADÊ</div>
+
+<!-- ====== RÉGUA E GUIAS ====== -->
+<div id="regua-h"></div><div id="regua-v"></div>
+<div id="guias-layer" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:20;display:none;"></div>
+<div id="espelho-line" style="position:fixed;top:0;left:50%;width:2px;height:100%;background:rgba(3,218,198,0.5);pointer-events:none;display:none;border-left:2px dashed rgba(3,218,198,0.6);z-index:20;"></div>
+<div id="conta-gotas-cursor" style="position:fixed;width:40px;height:40px;border-radius:50%;border:3px solid white;box-shadow:0 0 0 1px #000,0 4px 12px rgba(0,0,0,0.5);pointer-events:none;z-index:9999;display:none;transform:translate(-50%,-100%);"></div>
+<div id="indicador-rotacao" style="display:none;position:fixed;top:50px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.75);color:#03dac6;font-size:13px;font-weight:bold;padding:5px 14px;border-radius:20px;border:1px solid #03dac6;pointer-events:none;z-index:30;letter-spacing:1px;">0°</div>
+<div id="indicador-infinito" style="display:none;position:fixed;top:50px;left:50%;transform:translateX(-50%);background:rgba(3,218,198,0.15);border:1px solid #03dac6;color:#03dac6;font-size:10px;padding:4px 12px;border-radius:20px;pointer-events:none;z-index:20;">♾️ Papel infinito</div>
+
+<!-- ====== PAINEL CAMADAS ====== -->
+<div id="painel-camadas">
+    <div id="painel-header"><span>☰ CAMADAS</span><button id="btn-nova-camada">+ NOVA</button><button id="btn-fechar-painel">✕</button></div>
+    <div id="dica-camadas">segure e arraste qualquer camada para reordenar</div>
+    <div id="lista-camadas"></div>
+</div>
+<button id="btn-camadas-flutuante" ontouchstart="event.stopPropagation();togglePainel();fecharTodosPopups()" style="position:fixed;top:58px;right:10px;z-index:30;width:44px;height:44px;border-radius:12px;background:#1a1a1a;border:2px solid #03dac6;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;cursor:pointer;touch-action:manipulation;box-shadow:0 2px 10px rgba(3,218,198,0.3);"><span style="font-size:16px;color:#03dac6;">☰</span><span style="font-size:7px;font-weight:bold;color:#03dac6;letter-spacing:0.3px;">CAMADAS</span></button>
+
+<!-- ====== PAINEL HISTÓRICO ====== -->
+<div id="painel-historico">
+    <div style="padding:8px 10px;border-bottom:1px solid #333;display:flex;justify-content:space-between;align-items:center;"><span style="font-weight:bold;color:#03dac6;font-size:12px;">⏱ HISTÓRICO</span><button onclick="toggleHistorico()" style="background:#555;color:white;border:none;padding:4px 8px;border-radius:5px;font-size:12px;">✕</button></div>
+    <div id="hist-lista"></div>
+</div>
+
+<!-- ====== MODAIS ====== -->
+<div id="modal-degrade">...</div>   <!-- copie o conteúdo exato do modal-degrade do original -->
+<div id="modal-salvar">...</div>   <!-- copie o conteúdo exato -->
+<div id="modal-texto">...</div>    <!-- copie o conteúdo exato -->
+<div id="modal-novo-projeto">...</div> <!-- copie o conteúdo exato -->
+<div id="modal-perfil">...</div>   <!-- copie o conteúdo exato -->
+<div id="modal-manual">...</div>   <!-- copie o conteúdo exato -->
+<div id="tela-login">...</div>     <!-- copie o conteúdo exato -->
+<div id="tela-inicial">...</div>   <!-- copie o conteúdo exato -->
+
+<!-- ====== OVERLAY E POPUPS ====== -->
+<div id="popup-overlay"></div>
+<div id="popup-desenho" class="popup-menu">...</div>   <!-- copie o conteúdo exato -->
+<div id="popup-pinceis-wrap" class="popup-menu">...</div> <!-- copie o conteúdo exato -->
+<div id="popup-vista" class="popup-menu">...</div>    <!-- copie o conteúdo exato -->
+<div id="popup-projeto" class="popup-menu">...</div>  <!-- copie o conteúdo exato -->
+
+<!-- ====== BARRA PRINCIPAL ====== -->
+<div class="bar">
+    <input type="file" id="f" accept="image/*" style="position:fixed;left:-9999px;top:0;width:1px;height:1px;opacity:0;pointer-events:none;">
+    <div class="bar-btn" id="btnFerramentas" ontouchstart="togglePopup('popup-desenho')"><span id="ferr-icon">🖊</span><span class="bar-label" id="ferr-label">DRAW</span></div>
+    <div class="bar-btn" id="btnPinceis" ontouchstart="togglePopup('popup-pinceis-wrap')">🖌<span class="bar-label">PINCEL</span></div>
+    <div class="bar-btn" style="padding:4px;" ontouchstart="document.getElementById('col-main').click()"><div id="cor-preview-bar" style="width:24px;height:24px;border-radius:50%;background:#000;border:2px solid #555;"></div><span class="bar-label">COR</span></div>
+    <div class="bar-btn" ontouchstart="event.stopPropagation();fecharTodosPopups();setTimeout(function(){document.getElementById('f').click();},80)">📷<span class="bar-label">FOTO</span></div>
+    <div class="bar-btn" ontouchstart="event.stopPropagation();fecharTodosPopups();setTimeout(abrirModalSalvar,80)">💾<span class="bar-label">SALVAR</span></div>
+    <div class="bar-btn" ontouchstart="desfazerPen()">↩<span class="bar-label">DESFAZ</span></div>
+    <div class="bar-btn" ontouchstart="refazerPen()">↪<span class="bar-label">REFAZ</span></div>
+    <div class="bar-btn" ontouchstart="togglePopup('popup-projeto')">⋯<span class="bar-label">MAIS</span></div>
+</div>
+
+<!-- ====== LUPA ====== -->
+<div id="lupa"><canvas id="lupa-canvas" width="90" height="90"></canvas></div>
+
+<!-- ====== LOADER ====== -->
+<div id="tm-loader"><div class="tm-loader-spinner"></div><div class="tm-loader-msg" id="tm-loader-msg">Processando...</div><div class="tm-loader-bar-wrap"><div class="tm-loader-bar" id="tm-loader-bar"></div></div></div>
+<div id="tm-sugestao"><div class="tm-sug-titulo" id="tm-sug-titulo">💡 Sugestão</div><div class="tm-sug-texto" id="tm-sug-texto"></div><div class="tm-sug-btns"><button class="tm-sug-sim" id="tm-sug-sim">✓ Aplicar</button><button class="tm-sug-nao" id="tm-sug-nao">✕ Ignorar</button></div></div>
+<div id="notificacao"></div>
+<input type="file" id="f-projeto" accept=".tmaster" style="position:fixed;left:-9999px;visibility:hidden;">
+<canvas id="hidden-canvas" style="display:none"></canvas>
+<canvas id="thumb-canvas" width="36" height="45" style="display:none"></canvas>
+
+<!-- ====== SCRIPTS ====== -->
+<script src="js/config.js"></script>
+<script src="js/state.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/viewport.js"></script>
+<script src="js/layers.js"></script>
+<script src="js/history.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/degrade.js"></script>
+<script src="js/brushes.js"></script>
+<script src="js/vectorize.js"></script>
+<script src="js/tools/pen.js"></script>
+<script src="js/tools/misc.js"></script>
+<script src="js/tools/selecao.js"></script>
+<script src="js/tools/texto.js"></script>
+<script src="js/export.js"></script>
+<script src="js/app.js"></script>
+</body>
+  </html>
