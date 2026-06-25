@@ -1,9 +1,11 @@
+// ====== STATE.JS – ESTADO GLOBAL DO APP ======
+
 // ====== VIEWPORT ======
 let scale = 0.8, posX = 20, posY = 80, rotacao = 0;
 
 // ====== CAMADAS ======
 let camadas = [], camadaAtiva = 0;
-let camadaFoto = { opacidade:1, visivel:true, svgHTML:'' };
+let camadaFoto = { opacidade: 1, visivel: true, svgHTML: '' };
 let fotoOrdem = -1, idCounter = 1;
 
 // ====== HISTÓRICO ======
@@ -56,7 +58,8 @@ let txtDegradeTipo = 'linear';
 // ====== UI ======
 let painelAberto = false, painelHistoricoAberto = false;
 let usuarioAtual = null;
-let configUsuario = { nome:'', foto:'', tema:'escuro', accent:'#03dac6', folha:'800x1000', idioma:'pt' };
+let configUsuario = { nome: '', foto: '', tema: 'escuro', accent: '#03dac6', folha: '800x1000', idioma: 'pt' };
+let _editorAberto = false;
 
 // ====== VETORIZAÇÃO ======
 window.imgParaVetor = null;
@@ -64,6 +67,14 @@ let nrCoresSelecionadas = 1;
 
 // ====== INFINITO ======
 let gradeAtiva = false, gradeTamanho = 20;
+let tipoNovoProjeto = 'finito';
+let guias = [];
 
+// ====== NAMESPACE SVG ======
 const NS = 'http://www.w3.org/2000/svg';
-function mkEl(tag, attrs) { const el=document.createElementNS(NS,tag); for(const [k,v] of Object.entries(attrs)) el.setAttribute(k,v); return el; }
+
+function mkEl(tag, attrs) {
+    const el = document.createElementNS(NS, tag);
+    for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v);
+    return el;
+  }
