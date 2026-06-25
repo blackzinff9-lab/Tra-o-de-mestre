@@ -266,6 +266,51 @@ function aplicarConfig() {
 }
 
 // ====== FIM DA PARTE 1 ======
+// ====== FUNÇÕES PARA O MODAL NOVO PROJETO ======
+function selecionarTipoProjeto(tipo) {
+    tipoNovoProjeto = tipo;
+    document.getElementById('card-finito').classList.toggle('ativo', tipo === 'finito');
+    document.getElementById('card-infinito').classList.toggle('ativo', tipo === 'infinito');
+}
+
+function selecionarTamanhoGrade(tamanho) {
+    gradeTamanho = tamanho;
+    ['20','40','80','100'].forEach(function(s) {
+        document.getElementById('gs-'+s).classList.toggle('ativo', parseInt(s) === tamanho);
+    });
+}
+
+function criarProjeto() {
+    document.getElementById('modal-novo-projeto').classList.remove('aberto');
+    novoProjeto(tipoNovoProjeto);
+}
+
+function fecharModalNovoProjeto() {
+    document.getElementById('modal-novo-projeto').classList.remove('aberto');
+}
+
+// ====== FUNÇÃO PARA SALVAR CONFIGURAÇÕES DO PERFIL ======
+function salvarConfigUsuario() {
+    // Lê valores dos campos
+    configUsuario.nome = document.getElementById('cfg-nome').value || configUsuario.nome;
+    configUsuario.foto = document.getElementById('cfg-foto').value || configUsuario.foto;
+    configUsuario.accent = document.getElementById('cfg-accent').value;
+    configUsuario.folha = document.getElementById('cfg-folha').value;
+    configUsuario.idioma = document.getElementById('cfg-idioma').value;
+    localStorage.setItem('tm_config', JSON.stringify(configUsuario));
+    if (db) {
+        try { db.collection('usuarios').doc(usuarioAtual.uid).set(configUsuario); } catch(e) {}
+    }
+    aplicarConfig();
+    fecharPerfil();
+    mostrarNotificacao('✅ Configurações salvas!');
+}
+
+function logout() {
+    fecharPerfil();
+    if (firebaseOk) auth.signOut();
+    else mostrarTelaLogin();
+}
 // ====== UI.JS – PARTE 2 ======
 // Régua, conta-gotas, espelho, outline, snap, mover,
 // ferramentas, texto, grid infinito.
