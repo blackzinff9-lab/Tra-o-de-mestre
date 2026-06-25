@@ -370,6 +370,129 @@
         <div class="manual-secao" id="msec-0">
             <div class="manual-secao-titulo">✏️ Ferramentas de Desenho</div>
             <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">🖊</span><span class="manual-card-nome">PEN TOOL</span></div><p class="manual-desc">Cria caminhos vetoriais com pontos de ancoragem.</p></div>
+<!-- ====== INÍCIO DA PARTE 3 (CORRIGIDA) ====== -->
+
+<!-- ====== MODAL NOVO PROJETO (COM ONCLICK) ====== -->
+<div id="modal-novo-projeto">
+    <div class="novo-proj-box">
+        <h3>✨ Novo Projeto</h3>
+        <div class="tipo-cards">
+            <div class="tipo-card ativo" id="card-finito" onclick="selecionarTipoProjeto('finito')">
+                <div class="tipo-card-icon">📄</div>
+                <div class="tipo-card-nome">Folha</div>
+                <div class="tipo-card-desc">Tamanho fixo, ideal para exportar</div>
+            </div>
+            <div class="tipo-card" id="card-infinito" onclick="selecionarTipoProjeto('infinito')">
+                <div class="tipo-card-icon">♾️</div>
+                <div class="tipo-card-nome">Infinito</div>
+                <div class="tipo-card-desc">Canvas sem limites</div>
+            </div>
+        </div>
+        <div style="background:#222;border-radius:12px;padding:12px;margin-bottom:14px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+                <div>
+                    <div style="font-size:13px;color:#ccc;font-weight:bold;">⊞ Grade quadriculada</div>
+                    <div style="font-size:10px;color:#555;margin-top:2px;">Guia visual, não exportada</div>
+                </div>
+                <label class="toggle-wrap">
+                    <input type="checkbox" id="chk-grade">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            <div id="grade-size-wrap" style="display:none;margin-top:10px;">
+                <div style="font-size:10px;color:#888;margin-bottom:6px;">Tamanho da célula:</div>
+                <div class="grade-opts">
+                    <div class="grade-size-btn ativo" id="gs-20" onclick="selecionarTamanhoGrade(20)">20px</div>
+                    <div class="grade-size-btn" id="gs-40" onclick="selecionarTamanhoGrade(40)">40px</div>
+                    <div class="grade-size-btn" id="gs-80" onclick="selecionarTamanhoGrade(80)">80px</div>
+                    <div class="grade-size-btn" id="gs-100" onclick="selecionarTamanhoGrade(100)">100px</div>
+                </div>
+            </div>
+        </div>
+        <button class="novo-proj-btn" id="btn-confirmar-novo-proj" onclick="criarProjeto()">✏️ CRIAR</button>
+        <button class="novo-proj-cancel" id="btn-cancelar-novo-proj" onclick="fecharModalNovoProjeto()">Cancelar</button>
+    </div>
+</div>
+
+<!-- ====== MODAL PERFIL (sem mudanças) ====== -->
+<div id="modal-perfil">
+    <div class="perfil-box">
+        <div class="perfil-header">
+            <h3>👤 Perfil & Config</h3>
+            <button onclick="fecharPerfil()" style="background:none;border:none;color:#888;font-size:20px;">✕</button>
+        </div>
+        <div class="perfil-avatar-wrap">
+            <img class="perfil-avatar" id="perfil-avatar-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='40' r='22' fill='%23555'/%3E%3Ccircle cx='50' cy='90' r='35' fill='%23555'/%3E%3C/svg%3E">
+            <div class="perfil-nome-display" id="perfil-nome-display">Usuário</div>
+            <div class="perfil-email-display" id="perfil-email-display">—</div>
+        </div>
+        <div class="perfil-secao">
+            <div class="perfil-secao-titulo">✏️ Editar Perfil</div>
+            <div class="config-item"><div><div class="config-label">Nome</div></div><input id="cfg-nome" style="background:#2a2a2a;border:1px solid #444;border-radius:8px;padding:6px 10px;color:white;font-size:12px;width:160px;outline:none;" placeholder="Seu nome"></div>
+            <div class="config-item"><div><div class="config-label">Foto de perfil</div><div class="config-desc">URL de imagem</div></div><input id="cfg-foto" style="background:#2a2a2a;border:1px solid #444;border-radius:8px;padding:6px 10px;color:white;font-size:11px;width:140px;outline:none;" placeholder="https://..."></div>
+        </div>
+        <div class="perfil-secao">
+            <div class="perfil-secao-titulo">🎨 Aparência</div>
+            <div class="config-item">
+                <div><div class="config-label">Tema</div></div>
+                <div class="tema-opts">
+                    <div class="tema-opt ativo" id="tema-escuro" onclick="setTema('escuro')">🌙 Escuro</div>
+                    <div class="tema-opt" id="tema-claro" onclick="setTema('claro')">☀️ Claro</div>
+                </div>
+            </div>
+            <div class="config-item">
+                <div><div class="config-label">Cor de destaque</div><div class="config-desc">Botões e bordas</div></div>
+                <input type="color" class="config-color" id="cfg-accent" value="#03dac6">
+            </div>
+        </div>
+        <div class="perfil-secao">
+            <div class="perfil-secao-titulo">📄 Folha de Trabalho</div>
+            <div class="config-item">
+                <div><div class="config-label">Tamanho</div></div>
+                <select class="config-select" id="cfg-folha">
+                    <option value="800x1000">A4 Retrato (800×1000)</option>
+                    <option value="1000x800">A4 Paisagem (1000×800)</option>
+                    <option value="800x800">Quadrado (800×800)</option>
+                    <option value="1080x1920">Story (1080×1920)</option>
+                    <option value="1920x1080">Widescreen (1920×1080)</option>
+                </select>
+            </div>
+        </div>
+        <div class="perfil-secao">
+            <div class="perfil-secao-titulo">🌐 Idioma</div>
+            <div class="config-item">
+                <div><div class="config-label">Idioma da interface</div></div>
+                <select class="config-select" id="cfg-idioma">
+                    <option value="pt">🇧🇷 Português</option>
+                    <option value="en">🇺🇸 English</option>
+                    <option value="es">🇪🇸 Español</option>
+                </select>
+            </div>
+        </div>
+        <button class="btn-salvar-perfil" id="btn-salvar-cfg" onclick="salvarConfigUsuario()">💾 Salvar configurações</button>
+        <button class="btn-logout" id="btn-logout" onclick="logout()">Sair da conta</button>
+    </div>
+</div>
+
+<!-- ====== MODAL MANUAL (resumido, sem mudanças) ====== -->
+<div id="modal-manual" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:2000;overflow-y:auto;padding:20px;box-sizing:border-box;">
+    <div style="max-width:400px;margin:0 auto;padding-bottom:40px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;position:sticky;top:0;background:rgba(0,0,0,0.95);padding:10px 0;z-index:1;">
+            <div style="font-size:18px;font-weight:900;background:linear-gradient(135deg,#03dac6,#ff00ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">📖 Manual TraceMaster</div>
+            <button onclick="fecharManual()" style="background:#333;border:none;color:white;width:36px;height:36px;border-radius:50%;font-size:16px;">✕</button>
+        </div>
+        <div id="manual-nav" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px;">
+            <button class="manual-nav-btn ativa" onclick="irSecao(0)">🖊 Desenho</button>
+            <button class="manual-nav-btn" onclick="irSecao(1)">🖌 Pincéis</button>
+            <button class="manual-nav-btn" onclick="irSecao(2)">👁 Vista</button>
+            <button class="manual-nav-btn" onclick="irSecao(3)">☰ Camadas</button>
+            <button class="manual-nav-btn" onclick="irSecao(4)">📷 Foto</button>
+            <button class="manual-nav-btn" onclick="irSecao(5)">💾 Projeto</button>
+        </div>
+        <!-- Seções do manual (resumidas) -->
+        <div class="manual-secao" id="msec-0">
+            <div class="manual-secao-titulo">✏️ Ferramentas de Desenho</div>
+            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">🖊</span><span class="manual-card-nome">PEN TOOL</span></div><p class="manual-desc">Cria caminhos vetoriais com pontos de ancoragem.</p></div>
             <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">✏️</span><span class="manual-card-nome">LIVRE</span></div><p class="manual-desc">Desenho à mão livre com pincéis variados.</p></div>
             <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">🧹</span><span class="manual-card-nome">BORRACHA</span></div><p class="manual-desc">Corta caminhos com uma linha de corte.</p></div>
             <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">⬡</span><span class="manual-card-nome">FORMA</span></div><p class="manual-desc">Desenha círculos, retângulos, triângulos e linhas.</p></div>
@@ -402,7 +525,7 @@
     </div>
 </div>
 
-<!-- ====== TELA DE LOGIN (BOTÃO CORRIGIDO) ====== -->
+<!-- ====== TELA DE LOGIN (já corrigida) ====== -->
 <div id="tela-login">
     <div class="login-icon">🎨</div>
     <div class="login-logo">TraceMaster</div>
@@ -419,7 +542,6 @@
         <div class="login-erro" id="login-erro"></div>
         <button class="btn-login-email" id="btn-login-email">Entrar</button>
         <button class="btn-login-criar" id="btn-criar-conta">Criar conta</button>
-        <!-- BOTÃO CORRIGIDO: onclick em vez de ontouchstart -->
         <button id="btn-demo" onclick="mostrarTelaInicial()" style="background:transparent;border:none;color:#555;font-size:11px;padding:8px;cursor:pointer;width:100%;margin-top:4px;">Continuar sem conta (modo demo)</button>
     </div>
     <div class="login-versao">v3.0</div>
@@ -440,7 +562,7 @@
     <div class="versao">v7 ✓</div>
 </div>
 
-<!-- ====== FIM DA PARTE 3 ====== -->
+<!-- ====== FIM DA PARTE 3 (CORRIGIDA) ====== -->
     <!-- ====== INÍCIO DA PARTE 4 ====== -->
 
 <!-- ====== POPUPS ====== -->
