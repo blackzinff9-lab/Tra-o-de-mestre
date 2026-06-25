@@ -1,19 +1,31 @@
-// Firebase
+// ====== FIREBASE DESATIVADO (MODO DEMO) ======
+// Para ativar o Firebase, descomente o bloco abaixo e substitua pelas suas credenciais.
+
+let auth = null;
+let db = null;
+let firebaseOk = false;
+
+/*
+// === BLOCO FIREBASE (COMENTADO) ===
 const firebaseConfig = {
-    apiKey: "AIzaSyAIbhdlmdV0UUfqmpy8Fp1Qq",
-    authDomain: "tracomestre-88a5c.firebaseapp.com",
-    projectId: "tracomestre-88a5c",
-    storageBucket: "tracomestre-88a5c.firebasestorage.app",
-    messagingSenderId: "661742336751",
-    appId: "1:661742336751:web:9b0cc7e40bdc201ebaf91a",
-    measurementId: "G-GZCSZ5CN5W"
+    apiKey: "SUA_API_KEY",
+    authDomain: "SEU_PROJETO.firebaseapp.com",
+    projectId: "SEU_PROJETO",
+    storageBucket: "SEU_PROJETO.appspot.com",
+    messagingSenderId: "SEU_ID",
+    appId: "SEU_APP_ID"
 };
-let auth = null, db = null, firebaseOk = false;
 try {
-    if (firebaseConfig.apiKey !== 'SUA_API_KEY') {
-        firebase.initializeApp(firebaseConfig);
-        auth = firebase.auth();
-        db = firebase.firestore();
-        firebaseOk = true;
-    }
-} catch(e) { console.warn('Firebase não configurado:', e); }
+    firebase.initializeApp(firebaseConfig);
+    auth = firebase.auth();
+    db = firebase.firestore();
+    firebaseOk = true;
+    console.log('Firebase inicializado.');
+} catch(e) {
+    console.warn('Firebase não configurado:', e);
+}
+// === FIM DO BLOCO FIREBASE ===
+*/
+
+// Força o modo demo (sempre pula a tela de login)
+console.log('Modo DEMO ativado. Login desabilitado.');
