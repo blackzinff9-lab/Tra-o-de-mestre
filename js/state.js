@@ -19,6 +19,7 @@ let modoEspelho = false, modoOutline = false, modoInfinito = false;
 let folhaTravada = false, snapAtivo = false, reguaAtiva = false;
 let pincelAtual = 'normal';
 let menuPinceisAberto = false;
+let _editorAberto = false;
 
 // ====== PEN ======
 let caminhoAtivo = -1, pontosPen = [], pathFechado = false;
@@ -59,7 +60,6 @@ let txtDegradeTipo = 'linear';
 let painelAberto = false, painelHistoricoAberto = false;
 let usuarioAtual = null;
 let configUsuario = { nome: '', foto: '', tema: 'escuro', accent: '#03dac6', folha: '800x1000', idioma: 'pt' };
-let _editorAberto = false;
 
 // ====== VETORIZAÇÃO ======
 window.imgParaVetor = null;
@@ -77,4 +77,4 @@ function mkEl(tag, attrs) {
     const el = document.createElementNS(NS, tag);
     for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v);
     return el;
-  }
+}
