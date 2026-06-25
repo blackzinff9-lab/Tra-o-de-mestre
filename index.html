@@ -262,7 +262,7 @@
             <div class="tipo-card" id="card-infinito">
                 <div class="tipo-card-icon">♾️</div>
                 <div class="tipo-card-nome">Infinito</div>
-                <div class="tipo-card-desc">Canvas sem limites, fundo escuro</div>
+                <div class="tipo-card-desc">Canvas sem limites</div>
             </div>
         </div>
         <div style="background:#222;border-radius:12px;padding:12px;margin-bottom:14px;">
@@ -305,14 +305,8 @@
         </div>
         <div class="perfil-secao">
             <div class="perfil-secao-titulo">✏️ Editar Perfil</div>
-            <div class="config-item">
-                <div><div class="config-label">Nome</div></div>
-                <input id="cfg-nome" style="background:#2a2a2a;border:1px solid #444;border-radius:8px;padding:6px 10px;color:white;font-size:12px;width:160px;outline:none;" placeholder="Seu nome">
-            </div>
-            <div class="config-item">
-                <div><div class="config-label">Foto de perfil</div><div class="config-desc">URL de imagem</div></div>
-                <input id="cfg-foto" style="background:#2a2a2a;border:1px solid #444;border-radius:8px;padding:6px 10px;color:white;font-size:11px;width:140px;outline:none;" placeholder="https://...">
-            </div>
+            <div class="config-item"><div><div class="config-label">Nome</div></div><input id="cfg-nome" style="background:#2a2a2a;border:1px solid #444;border-radius:8px;padding:6px 10px;color:white;font-size:12px;width:160px;outline:none;" placeholder="Seu nome"></div>
+            <div class="config-item"><div><div class="config-label">Foto de perfil</div><div class="config-desc">URL de imagem</div></div><input id="cfg-foto" style="background:#2a2a2a;border:1px solid #444;border-radius:8px;padding:6px 10px;color:white;font-size:11px;width:140px;outline:none;" placeholder="https://..."></div>
         </div>
         <div class="perfil-secao">
             <div class="perfil-secao-titulo">🎨 Aparência</div>
@@ -357,7 +351,7 @@
     </div>
 </div>
 
-<!-- ====== MODAL MANUAL ====== -->
+<!-- ====== MODAL MANUAL (resumido) ====== -->
 <div id="modal-manual" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:2000;overflow-y:auto;padding:20px;box-sizing:border-box;">
     <div style="max-width:400px;margin:0 auto;padding-bottom:40px;">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;position:sticky;top:0;background:rgba(0,0,0,0.95);padding:10px 0;z-index:1;">
@@ -372,82 +366,43 @@
             <button class="manual-nav-btn" ontouchstart="irSecao(4)">📷 Foto</button>
             <button class="manual-nav-btn" ontouchstart="irSecao(5)">💾 Projeto</button>
         </div>
+        <!-- Seções do manual resumidas (apenas títulos) -->
         <div class="manual-secao" id="msec-0">
             <div class="manual-secao-titulo">✏️ Ferramentas de Desenho</div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon" style="background:#ff00ff;">🖊</span><span class="manual-card-nome">PEN TOOL</span></div><p class="manual-desc">Cria caminhos vetoriais com pontos de ancoragem precisos. Cada toque adiciona um ponto. Arraste um ponto existente para mover. Toque duplo rápido para fechar/cortar.</p><div class="manual-dica">💡 Use o botão <b>FECHAR</b> no menu PROJETO para fechar o caminho em forma</div></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon" style="background:#03dac6;">✏️</span><span class="manual-card-nome">LIVRE</span></div><p class="manual-desc">Desenho à mão livre com o dedo. Escolha o pincel no menu PINCEL para variar o estilo do traço. Ideal para esboços rápidos.</p><div class="manual-dica">💡 Combine com ESPELHO para desenho simétrico automático</div></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon" style="background:#ff6600;">🧹</span><span class="manual-card-nome">BORRACHA</span></div><p class="manual-desc">Marca dois pontos na tela para definir uma linha de corte. Os caminhos que cruzarem essa linha serão cortados. Toque duplo para aplicar o corte.</p><div class="manual-dica">💡 O botão ↩ remove o último ponto marcado</div></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon" style="background:#aa00ff;">⬡</span><span class="manual-card-nome">FORMA</span></div><p class="manual-desc">Arraste na tela para desenhar formas geométricas: círculo, retângulo, triângulo ou linha. Escolha a forma no menu que aparece.</p></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon" style="background:#03dac6;">⊹</span><span class="manual-card-nome">SELEÇÃO</span></div><p class="manual-desc">Toque em qualquer elemento para selecioná-lo, depois arraste para mover. O ✕ vermelho exclui o elemento selecionado.</p></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon" style="background:#333;">T</span><span class="manual-card-nome">TEXTO</span></div><p class="manual-desc">Toque na tela para posicionar o texto. Escolha a fonte, tamanho, cor e opcionalmente degradê ou contorno. Após inserido, arraste para reposicionar.</p><div class="manual-dica">💡 Toque num texto existente para editar ou mover</div></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon" style="background:#e74c3c;">🎨</span><span class="manual-card-nome">DEGRADÊ</span></div><p class="manual-desc">Arraste na tela para definir direção e tamanho do degradê. Após criar, as bolinhas A e B permitem ajustar os pontos de início e fim. Suporta 2 a 4 cores.</p><div class="manual-dica">💡 Use "CAMADA" para aplicar o degradê só nos traços desenhados</div></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon" style="background:#ffaa00;">✎</span><span class="manual-card-nome">EDITAR</span></div><p class="manual-desc">Toque em um caminho da Pen Tool para entrar no modo de edição dos seus pontos. Arraste os pontos para reposicioná-los. Toque em um ponto para alternar entre âncora e curva.</p></div>
+            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">🖊</span><span class="manual-card-nome">PEN TOOL</span></div><p class="manual-desc">Cria caminhos vetoriais com pontos de ancoragem.</p></div>
+            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">✏️</span><span class="manual-card-nome">LIVRE</span></div><p class="manual-desc">Desenho à mão livre com pincéis variados.</p></div>
+            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">🧹</span><span class="manual-card-nome">BORRACHA</span></div><p class="manual-desc">Corta caminhos com uma linha de corte.</p></div>
+            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">⬡</span><span class="manual-card-nome">FORMA</span></div><p class="manual-desc">Desenha círculos, retângulos, triângulos e linhas.</p></div>
+            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">⊹</span><span class="manual-card-nome">SELEÇÃO</span></div><p class="manual-desc">Seleciona, move, redimensiona e rotaciona elementos.</p></div>
+            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">T</span><span class="manual-card-nome">TEXTO</span></div><p class="manual-desc">Insere texto com fontes, cores, degradê e contorno.</p></div>
+            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">🎨</span><span class="manual-card-nome">DEGRADÊ</span></div><p class="manual-desc">Cria degradê linear ou radial com 2 a 4 cores.</p></div>
+            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">✎</span><span class="manual-card-nome">EDITAR</span></div><p class="manual-desc">Edita os pontos de um caminho da Pen Tool.</p></div>
         </div>
         <div class="manual-secao" id="msec-1" style="display:none;">
             <div class="manual-secao-titulo">🖌 Pincéis</div>
-            <p style="font-size:12px;color:#888;margin-bottom:12px;">Acesse pelo botão <b>PINCEL</b> na barra. Os pincéis só funcionam na ferramenta LIVRE.</p>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">✏️</span><span class="manual-card-nome">Normal</span></div><p class="manual-desc">Traço limpo e uniforme. O mais preciso para contornos.</p></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">▬</span><span class="manual-card-nome">Marcador</span></div><p class="manual-desc">Traço flat sem transparência, como um marcador físico.</p></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">╌</span><span class="manual-card-nome">Tracejado</span></div><p class="manual-desc">Linha pontilhada. O tamanho do pincel controla o espaçamento.</p></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">𝒞</span><span class="manual-card-nome">Caligrafia</span></div><p class="manual-desc">Varia a espessura conforme a direção do traço, imitando uma pena caligráfica.</p></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">💧</span><span class="manual-card-nome">Aquarela</span></div><p class="manual-desc">Transparência suave com bordas esfumadas. Ideal para sombras.</p></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">▓</span><span class="manual-card-nome">Carvão</span></div><p class="manual-desc">Textura granulada irregular, imita carvão ou grafite.</p></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">☁</span><span class="manual-card-nome">Giz</span></div><p class="manual-desc">Suave e esfumado, como giz de cera ou pastel.</p></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">🌟</span><span class="manual-card-nome">Neon</span></div><p class="manual-desc">Traço luminoso com brilho ao redor. Ótimo em fundos escuros.</p></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">💨</span><span class="manual-card-nome">Spray</span></div><p class="manual-desc">Pontos espalhados em área. Simula aerossol ou spray.</p></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">〰</span><span class="manual-card-nome">Pelo / Cabelo</span></div><p class="manual-desc">Múltiplas linhas paralelas finas. Ideal para texturas de cabelo ou pelo.</p></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">✦</span><span class="manual-card-nome">Estrela</span></div><p class="manual-desc">Faíscas e brilhos ao longo do traço.</p></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">⬭</span><span class="manual-card-nome">Lasso</span></div><p class="manual-desc">Contorno suavizado com pressão variável nas pontas.</p></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">·</span><span class="manual-card-nome">Pontilhismo</span></div><p class="manual-desc">Pontos circulares ao longo do traço. Tamanho controla espaçamento.</p></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">////</span><span class="manual-card-nome">Risco</span></div><p class="manual-desc">Hachura irregular, como riscar com lápis rápido.</p></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">∥</span><span class="manual-card-nome">Duplo</span></div><p class="manual-desc">Duas linhas paralelas simultâneas. Ótimo para contornos duplos.</p></div>
+            <p style="font-size:12px;color:#888;">Acesse pelo botão PINCEL. São 16 estilos: Normal, Marcador, Tracejado, Caligrafia, Aquarela, Carvão, Giz, Óleo, Neon, Spray, Pelo, Estrela, Lasso, Pontilhismo, Risco e Duplo.</p>
         </div>
         <div class="manual-secao" id="msec-2" style="display:none;">
-            <div class="manual-secao-titulo">👁 Vista & Navegação</div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">👌</span><span class="manual-card-nome">Zoom / Rotação</span></div><p class="manual-desc">Use dois dedos para dar zoom e rotacionar a folha livremente. O snap automático trava em 0°, 90°, 180° e 270°.</p><div class="manual-dica">💡 A folha nunca sai completamente da tela</div></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">☝️</span><span class="manual-card-nome">Pan (mover tela)</span></div><p class="manual-desc">Com um dedo fora de qualquer ferramenta ativa, arraste para mover a visão da folha.</p></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">⟳</span><span class="manual-card-nome">RESET</span></div><p class="manual-desc">Volta a folha para a posição e zoom padrão, sem rotação.</p></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">🔒</span><span class="manual-card-nome">MOVER</span></div><p class="manual-desc">Trava o pan com 1 dedo. Útil para desenhar sem mover a folha sem querer.</p></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">⟺</span><span class="manual-card-nome">ESPELHO</span></div><p class="manual-desc">Tudo que você desenhar à esquerda do centro aparece espelhado à direita automaticamente.</p></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">📐</span><span class="manual-card-nome">RÉGUA</span></div><p class="manual-desc">Exibe réguas nas bordas e permite criar guias — arraste a régua para soltar uma linha guia na tela.</p></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">◻</span><span class="manual-card-nome">OUTLINE</span></div><p class="manual-desc">Mostra todos os traços sem cor, só o contorno vetorial. Útil para conferir os caminhos.</p></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">🧲</span><span class="manual-card-nome">SNAP</span></div><p class="manual-desc">Os pontos da Pen Tool se magnetizam aos pontos próximos para encaixe preciso.</p></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">💧</span><span class="manual-card-nome">CONTA-GOTAS</span></div><p class="manual-desc">Toque em qualquer área da tela para capturar a cor daquele ponto e usá-la como cor ativa.</p></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">⏱</span><span class="manual-card-nome">HISTÓRICO</span></div><p class="manual-desc">Painel lateral com todas as ações. Toque numa ação anterior para voltar àquele estado.</p></div>
+            <div class="manual-secao-titulo">👁 Vista</div>
+            <p style="font-size:12px;color:#888;">Zoom com dois dedos, rotação com snap automático, pan com um dedo, reset, régua com guias, outline, snap, conta-gotas e histórico.</p>
         </div>
         <div class="manual-secao" id="msec-3" style="display:none;">
             <div class="manual-secao-titulo">☰ Camadas</div>
-            <p style="font-size:12px;color:#888;margin-bottom:12px;">Acesse pelo botão <b>CAMADAS</b> na barra. O painel desliza da direita.</p>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">+</span><span class="manual-card-nome">Nova Camada</span></div><p class="manual-desc">Cria uma camada vazia no topo da pilha. Cada camada tem seus próprios traços independentes.</p></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">👁</span><span class="manual-card-nome">Visibilidade</span></div><p class="manual-desc">O botão 👁 mostra ou oculta a camada. Camadas ocultas não são exportadas.</p></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">≋</span><span class="manual-card-nome">Opacidade</span></div><p class="manual-desc">O slider OPAC controla a transparência da camada inteira, de 0% a 100%.</p></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">↕</span><span class="manual-card-nome">Reordenar</span></div><p class="manual-desc">Segure e arraste uma camada para mudar sua posição na pilha. Camadas do topo ficam na frente.</p></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">✕</span><span class="manual-card-nome">Deletar</span></div><p class="manual-desc">Remove a camada e todo seu conteúdo. Não pode desfazer — cuidado!</p></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">📷</span><span class="manual-card-nome">Camada Foto</span></div><p class="manual-desc">Camada especial bloqueada que contém a vetorização da foto importada. Sempre fica abaixo das outras.</p></div>
-            <div class="manual-dica" style="margin-top:8px;">⚠️ Ao trocar de camada durante o uso da Pen Tool, o caminho atual é salvo automaticamente na camada anterior.</div>
+            <p style="font-size:12px;color:#888;">Criação, renomeação, visibilidade, opacidade, reordenação por drag e exclusão de camadas. Camada especial para fotos.</p>
         </div>
-         <div class="manual-secao" id="msec-4" style="display:none;">
+        <div class="manual-secao" id="msec-4" style="display:none;">
             <div class="manual-secao-titulo">📷 Importar & Vetorizar Foto</div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">📷</span><span class="manual-card-nome">Importar Foto</span></div><p class="manual-desc">Toque em COR → ícone 📷 ou no menu PROJETO → FOTO. Escolha uma imagem da galeria.</p></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">✨</span><span class="manual-card-nome">Auto Vetorizar</span></div><p class="manual-desc">O app analisa a imagem e configura automaticamente o contraste, brilho e número de cores para o melhor resultado.</p></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">🎨</span><span class="manual-card-nome">Nº de Cores</span></div><p class="manual-desc">Escolha 1, 2 ou 3 cores para a vetorização. 1 cor = só contorno preto. Mais cores = mais detalhes.</p></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">⚙️</span><span class="manual-card-nome">Ajustes</span></div><p class="manual-desc"><b>Contraste:</b> aumenta a diferença entre claro e escuro.<br><b>Brilho:</b> clareia ou escurece a imagem antes de vetorizar.<br><b>Suavizar:</b> reduz ruídos e detalhes finos.<br><b>Ruído:</b> remove pequenos fragmentos do vetor final.</p></div>
-            <div class="manual-dica">💡 Para lineart (desenho em papel), use 1 cor preta com contraste alto e suavizar baixo</div>
+            <p style="font-size:12px;color:#888;">Importe uma imagem, ajuste contraste, brilho, suavização e ruído. Auto vetorizar detecta o tipo da imagem e configura automaticamente.</p>
         </div>
         <div class="manual-secao" id="msec-5" style="display:none;">
             <div class="manual-secao-titulo">💾 Projeto & Exportação</div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">💾</span><span class="manual-card-nome">Salvar no App</span></div><p class="manual-desc">Salva o projeto localmente no dispositivo com nome personalizado. Aparece na tela inicial para abrir depois.</p></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">📐</span><span class="manual-card-nome">Exportar SVG</span></div><p class="manual-desc">Gera um arquivo SVG vetorial puro — pode ser aberto em Illustrator, Inkscape ou qualquer editor vetorial.</p></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">📄</span><span class="manual-card-nome">Exportar PDF</span></div><p class="manual-desc">Gera um PDF no tamanho exato da folha de trabalho, pronto para impressão.</p></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">↩↪</span><span class="manual-card-nome">Desfazer / Refazer</span></div><p class="manual-desc">↩ desfaz a última ação. ↪ refaz. Histórico de até 50 ações. Durante a Pen Tool, ↩ remove o último ponto colocado.</p></div>
-            <div class="manual-card"><div class="manual-card-header"><span class="manual-icon">📄♾️</span><span class="manual-card-nome">Tipos de Projeto</span></div><p class="manual-desc"><b>Folha:</b> tamanho fixo ideal para exportar (A4, quadrado, story…)<br><b>Infinito:</b> canvas sem limites para projetos livres.</p></div>
-            <div class="manual-dica">💡 O app salva um rascunho automático a cada traço — você nunca perde trabalho por acidente</div>
+            <p style="font-size:12px;color:#888;">Salve projetos no app, exporte SVG ou PDF. Histórico de desfazer/refazer com até 30 ações.</p>
         </div>
         <div style="height:20px;"></div>
     </div>
 </div>
 
-<!-- ====== TELA DE LOGIN ====== -->
+<!-- ====== TELA DE LOGIN (BOTÃO CORRIGIDO) ====== -->
 <div id="tela-login">
     <div class="login-icon">🎨</div>
     <div class="login-logo">TraceMaster</div>
@@ -464,7 +419,8 @@
         <div class="login-erro" id="login-erro"></div>
         <button class="btn-login-email" id="btn-login-email">Entrar</button>
         <button class="btn-login-criar" id="btn-criar-conta">Criar conta</button>
-        <button id="btn-demo" style="background:transparent;border:none;color:#555;font-size:11px;padding:8px;cursor:pointer;width:100%;margin-top:4px;">Continuar sem conta (modo demo)</button>
+        <!-- BOTÃO CORRIGIDO: onclick em vez de ontouchstart -->
+        <button id="btn-demo" onclick="mostrarTelaInicial()" style="background:transparent;border:none;color:#555;font-size:11px;padding:8px;cursor:pointer;width:100%;margin-top:4px;">Continuar sem conta (modo demo)</button>
     </div>
     <div class="login-versao">v3.0</div>
 </div>
@@ -485,7 +441,6 @@
 </div>
 
 <!-- ====== FIM DA PARTE 3 ====== -->
-    
     <!-- ====== INÍCIO DA PARTE 4 ====== -->
 
 <!-- ====== POPUPS ====== -->
@@ -519,28 +474,28 @@
     </div>
     <div id="menu-pinceis" style="display:flex;position:static;border:none;padding:0;width:auto;background:transparent;">
         <div id="grupo-basico" class="pincel-grupo">
-            <div class="pincel-btn ativo" id="pb-normal" ontouchstart="selecionarPincel('normal',this)"><canvas class="pincel-preview" id="prev-normal"></canvas><div><div class="pincel-nome">Normal</div><div class="pincel-desc">Traço limpo e uniforme</div></div></div>
-            <div class="pincel-btn" id="pb-marcador" ontouchstart="selecionarPincel('marcador',this)"><canvas class="pincel-preview" id="prev-marcador"></canvas><div><div class="pincel-nome">Marcador</div><div class="pincel-desc">Flat, sem transparência</div></div></div>
-            <div class="pincel-btn" id="pb-tracejado" ontouchstart="selecionarPincel('tracejado',this)"><canvas class="pincel-preview" id="prev-tracejado"></canvas><div><div class="pincel-nome">Tracejado</div><div class="pincel-desc">Linha pontilhada</div></div></div>
+            <div class="pincel-btn ativo" id="pb-normal" ontouchstart="selecionarPincel('normal',this)"><canvas class="pincel-preview" id="prev-normal"></canvas><div><div class="pincel-nome">Normal</div><div class="pincel-desc">Traço limpo</div></div></div>
+            <div class="pincel-btn" id="pb-marcador" ontouchstart="selecionarPincel('marcador',this)"><canvas class="pincel-preview" id="prev-marcador"></canvas><div><div class="pincel-nome">Marcador</div><div class="pincel-desc">Flat</div></div></div>
+            <div class="pincel-btn" id="pb-tracejado" ontouchstart="selecionarPincel('tracejado',this)"><canvas class="pincel-preview" id="prev-tracejado"></canvas><div><div class="pincel-nome">Tracejado</div><div class="pincel-desc">Pontilhado</div></div></div>
         </div>
         <div id="grupo-artistico" class="pincel-grupo" style="display:none;">
-            <div class="pincel-btn" id="pb-caligrafia" ontouchstart="selecionarPincel('caligrafia',this)"><canvas class="pincel-preview" id="prev-caligrafia"></canvas><div><div class="pincel-nome">Caligrafia</div><div class="pincel-desc">Grosso/fino pela direção</div></div></div>
-            <div class="pincel-btn" id="pb-aquarela" ontouchstart="selecionarPincel('aquarela',this)"><canvas class="pincel-preview" id="prev-aquarela"></canvas><div><div class="pincel-nome">Aquarela</div><div class="pincel-desc">Transparência suave</div></div></div>
-            <div class="pincel-btn" id="pb-carvao" ontouchstart="selecionarPincel('carvao',this)"><canvas class="pincel-preview" id="prev-carvao"></canvas><div><div class="pincel-nome">Carvão</div><div class="pincel-desc">Textura granulada</div></div></div>
-            <div class="pincel-btn" id="pb-giz" ontouchstart="selecionarPincel('giz',this)"><canvas class="pincel-preview" id="prev-giz"></canvas><div><div class="pincel-nome">Giz</div><div class="pincel-desc">Suave e esfumado</div></div></div>
-            <div class="pincel-btn" id="pb-oleo" ontouchstart="selecionarPincel('oleo',this)"><canvas class="pincel-preview" id="prev-oleo"></canvas><div><div class="pincel-nome">Óleo</div><div class="pincel-desc">Denso com textura</div></div></div>
+            <div class="pincel-btn" id="pb-caligrafia" ontouchstart="selecionarPincel('caligrafia',this)"><canvas class="pincel-preview" id="prev-caligrafia"></canvas><div><div class="pincel-nome">Caligrafia</div><div class="pincel-desc">Grosso/fino</div></div></div>
+            <div class="pincel-btn" id="pb-aquarela" ontouchstart="selecionarPincel('aquarela',this)"><canvas class="pincel-preview" id="prev-aquarela"></canvas><div><div class="pincel-nome">Aquarela</div><div class="pincel-desc">Suave</div></div></div>
+            <div class="pincel-btn" id="pb-carvao" ontouchstart="selecionarPincel('carvao',this)"><canvas class="pincel-preview" id="prev-carvao"></canvas><div><div class="pincel-nome">Carvão</div><div class="pincel-desc">Granulado</div></div></div>
+            <div class="pincel-btn" id="pb-giz" ontouchstart="selecionarPincel('giz',this)"><canvas class="pincel-preview" id="prev-giz"></canvas><div><div class="pincel-nome">Giz</div><div class="pincel-desc">Esfumado</div></div></div>
+            <div class="pincel-btn" id="pb-oleo" ontouchstart="selecionarPincel('oleo',this)"><canvas class="pincel-preview" id="prev-oleo"></canvas><div><div class="pincel-nome">Óleo</div><div class="pincel-desc">Denso</div></div></div>
         </div>
         <div id="grupo-especial" class="pincel-grupo" style="display:none;">
-            <div class="pincel-btn" id="pb-neon" ontouchstart="selecionarPincel('neon',this)"><canvas class="pincel-preview" id="prev-neon"></canvas><div><div class="pincel-nome">Neon</div><div class="pincel-desc">Brilho luminoso</div></div></div>
-            <div class="pincel-btn" id="pb-spray" ontouchstart="selecionarPincel('spray',this)"><canvas class="pincel-preview" id="prev-spray"></canvas><div><div class="pincel-nome">Spray</div><div class="pincel-desc">Pontos espalhados</div></div></div>
-            <div class="pincel-btn" id="pb-pelo" ontouchstart="selecionarPincel('pelo',this)"><canvas class="pincel-preview" id="prev-pelo"></canvas><div><div class="pincel-nome">Pelo/Cabelo</div><div class="pincel-desc">Linhas múltiplas</div></div></div>
-            <div class="pincel-btn" id="pb-estrela" ontouchstart="selecionarPincel('estrela',this)"><canvas class="pincel-preview" id="prev-estrela"></canvas><div><div class="pincel-nome">Estrela</div><div class="pincel-desc">Faíscas e brilhos</div></div></div>
-            <div class="pincel-btn" id="pb-lasso" ontouchstart="selecionarPincel('lasso',this)"><canvas class="pincel-preview" id="prev-lasso"></canvas><div><div class="pincel-nome">Lasso</div><div class="pincel-desc">Contorno suave</div></div></div>
+            <div class="pincel-btn" id="pb-neon" ontouchstart="selecionarPincel('neon',this)"><canvas class="pincel-preview" id="prev-neon"></canvas><div><div class="pincel-nome">Neon</div><div class="pincel-desc">Brilho</div></div></div>
+            <div class="pincel-btn" id="pb-spray" ontouchstart="selecionarPincel('spray',this)"><canvas class="pincel-preview" id="prev-spray"></canvas><div><div class="pincel-nome">Spray</div><div class="pincel-desc">Pontos</div></div></div>
+            <div class="pincel-btn" id="pb-pelo" ontouchstart="selecionarPincel('pelo',this)"><canvas class="pincel-preview" id="prev-pelo"></canvas><div><div class="pincel-nome">Pelo</div><div class="pincel-desc">Fios</div></div></div>
+            <div class="pincel-btn" id="pb-estrela" ontouchstart="selecionarPincel('estrela',this)"><canvas class="pincel-preview" id="prev-estrela"></canvas><div><div class="pincel-nome">Estrela</div><div class="pincel-desc">Brilhos</div></div></div>
+            <div class="pincel-btn" id="pb-lasso" ontouchstart="selecionarPincel('lasso',this)"><canvas class="pincel-preview" id="prev-lasso"></canvas><div><div class="pincel-nome">Lasso</div><div class="pincel-desc">Suave</div></div></div>
         </div>
         <div id="grupo-textura" class="pincel-grupo" style="display:none;">
-            <div class="pincel-btn" id="pb-pontilhismo" ontouchstart="selecionarPincel('pontilhismo',this)"><canvas class="pincel-preview" id="prev-pontilhismo"></canvas><div><div class="pincel-nome">Pontilhismo</div><div class="pincel-desc">Pontos circulares</div></div></div>
-            <div class="pincel-btn" id="pb-risco" ontouchstart="selecionarPincel('risco',this)"><canvas class="pincel-preview" id="prev-risco"></canvas><div><div class="pincel-nome">Risco</div><div class="pincel-desc">Hachura irregular</div></div></div>
-            <div class="pincel-btn" id="pb-duplo" ontouchstart="selecionarPincel('duplo',this)"><canvas class="pincel-preview" id="prev-duplo"></canvas><div><div class="pincel-nome">Duplo</div><div class="pincel-desc">Duas linhas paralelas</div></div></div>
+            <div class="pincel-btn" id="pb-pontilhismo" ontouchstart="selecionarPincel('pontilhismo',this)"><canvas class="pincel-preview" id="prev-pontilhismo"></canvas><div><div class="pincel-nome">Pontilhismo</div><div class="pincel-desc">Pontos</div></div></div>
+            <div class="pincel-btn" id="pb-risco" ontouchstart="selecionarPincel('risco',this)"><canvas class="pincel-preview" id="prev-risco"></canvas><div><div class="pincel-nome">Risco</div><div class="pincel-desc">Hachura</div></div></div>
+            <div class="pincel-btn" id="pb-duplo" ontouchstart="selecionarPincel('duplo',this)"><canvas class="pincel-preview" id="prev-duplo"></canvas><div><div class="pincel-nome">Duplo</div><div class="pincel-desc">Paralelo</div></div></div>
         </div>
     </div>
 </div>
@@ -637,5 +592,21 @@
 <script src="js/export.js"></script>
 <script src="js/app.js"></script>
 
+<!-- ====== FALLBACK: força a tela inicial se o botão falhar ====== -->
+<script>
+setTimeout(function() {
+    var telaLogin = document.getElementById('tela-login');
+    var telaInicial = document.getElementById('tela-inicial');
+    if (telaLogin && telaLogin.style.display !== 'none') {
+        console.log('Fallback: forçando tela inicial');
+        telaLogin.style.display = 'none';
+        telaInicial.style.display = 'flex';
+        telaInicial.style.opacity = '1';
+        if (typeof aplicarConfig === 'function') aplicarConfig();
+        if (typeof renderizarTelaInicial === 'function') renderizarTelaInicial();
+    }
+}, 2000);
+</script>
+
 </body>
-</html>                                                                                                                                                                    </html>
+</html>
